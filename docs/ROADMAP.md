@@ -15,7 +15,7 @@
 
 | שלב | נושא | סטטוס |
 |---|---|---|
-| 0 | סביבה ושלד | 🟡 שלד מוכן, חסרה הקמת חשבונות |
+| 0 | סביבה ושלד | ✅ |
 | 1 | נתוני ייחוס והליבה העסקית | ⬜ |
 | 2 | מסד נתונים ומאגר רשות המסים | ⬜ |
 | 3 | שכבת היישום (בלי AI) | ⬜ |
@@ -52,17 +52,17 @@
 - [x] **S0-T4** סקריפטים (`check`, `typecheck`, `test`, `db:*`, `import:*`), Vitest, Drizzle config, `.env.example`, `.nvmrc`, `vercel.json` (fra1).
 - [x] **S0-T5** CI (GitHub Actions), תבנית PR, `.claude/settings.json`, פקודות `/next-task` `/verify` `/close-stage` `/status`.
 - [x] **S0-T6** מסמכים: ARCHITECTURE, ROADMAP, WORKFLOW, SETUP, TOOLS, CLAUDE.md.
-- [ ] **S0-T7** הקמת חשבונות ומפתחות לפי [SETUP.md](./SETUP.md): GitHub, Supabase dev+prod, Gemini, OpenRouter, Vercel.
-- [ ] **S0-T8** `.env.local` מלא; `npm run dev` עולה מקומית.
-- [ ] **S0-T9** דחיפה ל-GitHub; CI ירוק; הגנת ענף `main`.
-- [ ] **S0-T10** Vercel מחובר; עמוד השלד עולה ב-Production וב-Preview.
-- [ ] **S0-T11** MCP וכלים לפי [TOOLS.md](./TOOLS.md); `/status` ב-Claude Code מראה שה-settings נטען.
+- [x] **S0-T7** הקמת חשבונות ומפתחות לפי [SETUP.md](./SETUP.md): GitHub, Supabase dev+prod, Gemini, OpenRouter, Vercel. (OpenRouter נדחה לשלב 7: מפתח הגיבוי השני אופציונלי עד אז.)
+- [x] **S0-T8** `.env.local` מלא; `npm run dev` עולה מקומית.
+- [x] **S0-T9** דחיפה ל-GitHub; CI ירוק; הגנת ענף `main`.
+- [x] **S0-T10** Vercel מחובר; עמוד השלד עולה ב-Production וב-Preview.
+- [x] **S0-T11** MCP וכלים לפי [TOOLS.md](./TOOLS.md); `/status` ב-Claude Code מראה שה-settings נטען.
 
 **שער שלב 0:**
-- [ ] `npm run check` ו-`npm run build` עוברים מקומית וב-CI
-- [ ] כתובת Vercel מציגה את עמוד השלד בעברית מימין לשמאל
-- [ ] Claude Code לא מצליח לקרוא את `.env.local` (בקשי ממנו לנסות, והוא אמור להיחסם)
-- [ ] `main` מוגן: אי אפשר לדחוף ישירות, רק PR עם CI ירוק
+- [x] `npm run check` ו-`npm run build` עוברים מקומית וב-CI
+- [x] כתובת Vercel מציגה את עמוד השלד בעברית מימין לשמאל
+- [x] Claude Code לא מצליח לקרוא את `.env.local` (בקשי ממנו לנסות, והוא אמור להיחסם)
+- [x] `main` מוגן: אי אפשר לדחוף ישירות, רק PR עם CI ירוק
 
 ---
 
@@ -252,3 +252,4 @@
 | תאריך | שלב/משימה | מה נעשה | בדיקות | הערות |
 |---|---|---|---|---|
 | 21.10 | S0-T1..T6 | שלד, תלויות, מבנה, ESLint שכבות, CI, מסמכים | check + build עוברים; כללי שכבות נבדקו עם קבצי בדיקה | |
+| 21.10 | שלב 0 נסגר (S0-T7..T11) | חשבונות (GitHub, Supabase dev+prod, Gemini, Vercel), `.env.local`, CI ירוק, `main` מוגן, Vercel חי, Context7 מחובר | check + build עוברים; דחיפה ישירה ל-`main` נדחתה; קריאת `.env.local` נחסמה; `claude mcp list` מציג context7 מחובר; עמוד Vercel בעברית RTL (אישור ידני) | מריצה על Node 24 (הפרויקט מגדיר 22), הכול עבר. OpenRouter נדחה לשלב 7. אזור Vercel נקבע ב-`vercel.json` (fra1); הדשבורד מציג Overridden |
