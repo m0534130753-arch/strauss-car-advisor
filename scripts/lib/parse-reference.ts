@@ -1,6 +1,6 @@
 import type ExcelJS from "exceljs";
 import { ExcelImportError, readNumber, readTable, readText, readYesNo, type TableRow } from "./excel-cells";
-import type { Employee, Occupation, ReferenceArrangement, Vehicle } from "./excel-schemas";
+import type { EmployeeRow, OccupationRow, ReferenceArrangementRow, CatalogRow } from "@/server/adapters/files/schemas";
 import { findVehicle, parseAmount } from "./lookup";
 
 const SHEET = "חישובים";
@@ -25,7 +25,7 @@ const HEADERS = [
 const CAR_LABEL = /^(.+?)\s*\((\d{4})\)$/;
 const WAIVER_LABEL = /^ויתור\s*[-–—]\s*אחזקת רכב\s*([\d,]+)\s*₪$/;
 
-function parseArrangement(label: string, where: string, catalog: readonly Vehicle[]): ReferenceArrangement {
+function parseArrangement(label: string, where: string, catalog: readonly CatalogRow[]): ReferenceArrangementRow {
   const waiver = WAIVER_LABEL.exec(label);
   if (waiver) return { kind: "waiver", maintenanceAmount: parseAmount(waiver[1]) };
   const car = CAR_LABEL.exec(label);
@@ -34,7 +34,7 @@ function parseArrangement(label: string, where: string, catalog: readonly Vehicl
 }
 
 // The reference sheet and the employee sheet describe the same starting point; a mismatch means a broken source.
-function assertSameStart(today: ReferenceArrangement, employee: Employee, occupation: Occupation): void {
+function assertSameStart(today: ReferenceArrangementRow, employee: EmployeeRow, occupation: OccupationRow): void {
   const start = employee.currentArrangement;
   const matches =
     today.kind === "company_car"
@@ -43,7 +43,7 @@ function assertSameStart(today: ReferenceArrangement, employee: Employee, occupa
   if (!matches) throw new ExcelImportError(`${SHEET} ${employee.id}: עמודת "היום" לא תואמת לרכב של העובד`);
 }
 
-function assertWaiverMatchesOccupation(alternative: ReferenceArrangement, employee: Employee, occupation: Occupation): void {
+function assertWaiverMatchesOccupation(alternative: ReferenceArrangementRow, employee: EmployeeRow, occupation: OccupationRow): void {
   if (alternative.kind !== "waiver") return;
   if (!occupation.waiverAllowed || alternative.maintenanceAmount !== occupation.maintenanceAmount) {
     throw new ExcelImportError(`${SHEET} ${employee.id}: סכום הוויתור בחלופה לא תואם לעיסוק "${occupation.name}"`);
@@ -53,9 +53,9 @@ function assertWaiverMatchesOccupation(alternative: ReferenceArrangement, employ
 // Unvalidated output: the caller validates the whole dataset with zod.
 export function parseReference(
   workbook: ExcelJS.Workbook,
-  catalog: readonly Vehicle[],
-  occupations: readonly Occupation[],
-  employees: readonly Employee[],
+  catalog: readonly CatalogRow[],
+  occupations: readonly OccupationRow[],
+  employees: readonly EmployeeRow[],
 ): unknown[] {
   return readTable(workbook, SHEET, HEADERS).map((row: TableRow) => {
     const employeeId = readText(row, "מזהה");

@@ -1,6 +1,6 @@
 import type ExcelJS from "exceljs";
 import { ExcelImportError, readNumber, readTable, readText } from "./excel-cells";
-import type { Employee, Occupation, Vehicle } from "./excel-schemas";
+import type { EmployeeRow, OccupationRow, CatalogRow } from "@/server/adapters/files/schemas";
 import { findVehicle, parseAmount } from "./lookup";
 
 const SHEET = "עובדים לדוגמה";
@@ -27,8 +27,8 @@ const NO_CAR = /^אין\s*\(אחזקה\s*([\d,]+)\s*₪\)$/;
 // Unvalidated output: the caller validates the whole dataset with zod.
 export function parseEmployees(
   workbook: ExcelJS.Workbook,
-  catalog: readonly Vehicle[],
-  occupations: readonly Occupation[],
+  catalog: readonly CatalogRow[],
+  occupations: readonly OccupationRow[],
 ): unknown[] {
   return readTable(workbook, SHEET, HEADERS).map((row) => {
     const id = readText(row, "מזהה");
@@ -61,9 +61,9 @@ export function parseEmployees(
 function parseCurrentArrangement(
   row: Parameters<typeof readText>[0],
   id: string,
-  occupation: Occupation,
-  catalog: readonly Vehicle[],
-): Employee["currentArrangement"] {
+  occupation: OccupationRow,
+  catalog: readonly CatalogRow[],
+): EmployeeRow["currentArrangement"] {
   const label = readText(row, "רכב היום");
   const noCar = NO_CAR.exec(label);
   if (noCar) {

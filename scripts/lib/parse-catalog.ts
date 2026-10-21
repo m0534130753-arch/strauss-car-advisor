@@ -1,6 +1,6 @@
 import type ExcelJS from "exceljs";
 import { ExcelImportError, readCode, readNumber, readTable, readText } from "./excel-cells";
-import type { Vehicle } from "./excel-schemas";
+import type { CatalogRow } from "@/server/adapters/files/schemas";
 
 const SHEET = "קטלוג רכבים";
 const HEADERS = [
@@ -21,7 +21,7 @@ const HEADERS = [
 
 // propulsionByLabel comes from rules.valueOfUse.driveField, not from the Excel column title.
 // Unvalidated output: the caller validates the whole dataset with zod.
-export function parseCatalog(workbook: ExcelJS.Workbook, propulsionByLabel: ReadonlyMap<string, Vehicle["propulsion"]>): unknown[] {
+export function parseCatalog(workbook: ExcelJS.Workbook, propulsionByLabel: ReadonlyMap<string, CatalogRow["propulsion"]>): unknown[] {
   return readTable(workbook, SHEET, HEADERS).map((row) => {
     const label = readText(row, "הנעה");
     const propulsion = propulsionByLabel.get(label);

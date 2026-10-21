@@ -2,20 +2,29 @@ import ExcelJS from "exceljs";
 import { z } from "zod";
 import { ExcelImportError } from "./excel-cells";
 import {
-  EmployeeSchema,
-  OccupationSchema,
-  ReferenceResultSchema,
-  VehicleSchema,
-  type Datasets,
-  type Vehicle,
-} from "./excel-schemas";
+  CatalogFileSchema,
+  EmployeesFileSchema,
+  OccupationsFileSchema,
+  ReferenceResultsFileSchema,
+  type CatalogRow,
+  type EmployeeRow,
+  type OccupationRow,
+  type ReferenceResultRow,
+} from "@/server/adapters/files/schemas";
 import { parseCatalog } from "./parse-catalog";
 import { parseEmployees } from "./parse-employees";
 import { parseOccupations } from "./parse-occupations";
 import { parseReference } from "./parse-reference";
 
+export type Datasets = {
+  catalog: CatalogRow[];
+  occupations: OccupationRow[];
+  employees: EmployeeRow[];
+  reference: ReferenceResultRow[];
+};
+
 // Index in rules.valueOfUse.driveField -> propulsion code (ARCHITECTURE decision 4: 0,1,2,3)
-const PROPULSION_BY_DRIVE_INDEX: readonly Vehicle["propulsion"][] = ["petrol", "hybrid", "plugin", "electric"];
+const PROPULSION_BY_DRIVE_INDEX: readonly CatalogRow["propulsion"][] = ["petrol", "hybrid", "plugin", "electric"];
 
 export async function readWorkbook(filePath: string): Promise<ExcelJS.Workbook> {
   const workbook = new ExcelJS.Workbook();
@@ -36,8 +45,8 @@ function assertUnique(name: string, values: readonly string[]): void {
 }
 
 // driveField comes from rules.valueOfUse.driveField: { "0": "בנזין", "1": "היברידי", ... }
-function propulsionLabels(driveField: Readonly<Record<string, string>>): Map<string, Vehicle["propulsion"]> {
-  const labels = new Map<string, Vehicle["propulsion"]>();
+function propulsionLabels(driveField: Readonly<Record<string, string>>): Map<string, CatalogRow["propulsion"]> {
+  const labels = new Map<string, CatalogRow["propulsion"]>();
   PROPULSION_BY_DRIVE_INDEX.forEach((propulsion, index) => {
     const label = driveField[String(index)];
     if (typeof label !== "string") throw new ExcelImportError(`קובץ הכללים: חסר driveField["${index}"]`);
@@ -47,20 +56,16 @@ function propulsionLabels(driveField: Readonly<Record<string, string>>): Map<str
 }
 
 export function buildDatasets(workbook: ExcelJS.Workbook, driveField: Readonly<Record<string, string>>): Datasets {
-  const catalog = validate("קטלוג רכבים", z.array(VehicleSchema), parseCatalog(workbook, propulsionLabels(driveField)));
+  const catalog = validate("קטלוג רכבים", CatalogFileSchema, parseCatalog(workbook, propulsionLabels(driveField)));
   assertUnique("קטלוג רכבים (מזהה)", catalog.map((vehicle) => vehicle.id));
 
-  const occupations = validate("עיסוקים", z.array(OccupationSchema), parseOccupations(workbook));
+  const occupations = validate("עיסוקים", OccupationsFileSchema, parseOccupations(workbook));
   assertUnique("עיסוקים (שם)", occupations.map((occupation) => occupation.name));
 
-  const employees = validate("עובדים לדוגמה", z.array(EmployeeSchema), parseEmployees(workbook, catalog, occupations));
+  const employees = validate("עובדים לדוגמה", EmployeesFileSchema, parseEmployees(workbook, catalog, occupations));
   assertUnique("עובדים לדוגמה (מזהה)", employees.map((employee) => employee.id));
 
-  const reference = validate(
-    "חישובים",
-    z.array(ReferenceResultSchema),
-    parseReference(workbook, catalog, occupations, employees),
-  );
+  const reference = validate("חישובים", ReferenceResultsFileSchema, parseReference(workbook, catalog, occupations, employees));
   return { catalog, occupations, employees, reference };
 }
 
