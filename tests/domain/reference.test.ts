@@ -3,11 +3,7 @@ import { calculateNet, grossUpElectric, type NetInputs } from "@/server/domain/n
 import { buildReferenceCases, rules, type ReferenceCase } from "../support/reference-data";
 
 // Reference tests: the engine must reproduce the Strauss workbook for all six sample employees (ARCHITECTURE section 12).
-// Written before the engine (S1-T2). The suite stays skipped, so CI stays green, until S1-T5 turns it on:
-// RUN_ENGINE_TESTS=1 npx vitest run tests/domain/reference.test.ts
-// S1-T5 replaces `referenceSuite` with a plain `describe`.
-const referenceSuite = process.env.RUN_ENGINE_TESTS === "1" ? describe : describe.skip;
-
+// Written before the engine (S1-T2) and switched on with it (S1-T5).
 const TOLERANCE = 0.5; // the sheet shows whole shekels
 
 function expectNear(actual: number, expected: number): void {
@@ -33,7 +29,7 @@ describe("reference data", () => {
   });
 });
 
-referenceSuite.each(cases.map((testCase) => [testCase.row.employeeId, testCase] as const))(
+describe.each(cases.map((testCase) => [testCase.row.employeeId, testCase] as const))(
   "reference employee %s",
   (_id, testCase) => {
     const { row, profile } = testCase;
@@ -52,10 +48,12 @@ referenceSuite.each(cases.map((testCase) => [testCase.row.employeeId, testCase] 
       expectNear(result.nationalInsurance + result.health, row.socialAlternative);
     });
 
-    it("the difference is computed before rounding and matches the sheet", () => {
+    it("the difference is computed before rounding, and the sheet's difference is the one between its rounded nets", () => {
       const today = calculateNet(profile, withGrossUp(testCase, "today"), rules.netMethod);
       const alternative = calculateNet(profile, withGrossUp(testCase, "alternative"), rules.netMethod);
-      expectNear(alternative.net - today.net, row.difference);
+      // The sheet subtracts two nets that are already rounded, so it can differ from the exact difference by up to 1
+      expect(Math.abs(alternative.net - today.net - row.difference)).toBeLessThan(1);
+      expect(Math.round(alternative.net) - Math.round(today.net)).toBe(row.difference);
     });
 
     it("electric gross-up matches the sheet, and leaves exactly the net bonus", () => {
@@ -73,7 +71,7 @@ referenceSuite.each(cases.map((testCase) => [testCase.row.employeeId, testCase] 
   },
 );
 
-referenceSuite("family track", () => {
+describe("family track", () => {
   it("David (E-002): the employee's half of the gap above the group budget is 1,150 and the net is 5,078", () => {
     const testCase = cases.find((candidate) => candidate.row.employeeId === "E-002");
     if (!testCase) throw new Error("E-002 is missing from the reference data");

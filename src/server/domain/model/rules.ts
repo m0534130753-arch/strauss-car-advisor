@@ -20,7 +20,8 @@ export type NetMethod = {
   health: ContributionRule;
   pensionCredit: { rate: number; maxContributionRate: number; incomeCeiling: number };
   contributionsBase: "gross";
-  participation: { treatment: "net_deduction"; reducesValueOfUse: boolean };
+  // The engine only supports this treatment; the loader (S1-T4) rejects a rules file that says otherwise
+  participation: { treatment: "net_deduction"; reducesValueOfUse: false };
   rounding: { during: "none"; display: "shekel" };
 };
 
