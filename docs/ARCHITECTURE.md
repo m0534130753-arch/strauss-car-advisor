@@ -227,8 +227,10 @@ type Alternative = {
 פונקציה טהורה, הסדר אחד בכל הפעלה:
 
 ```
-calculateNet(profile, arrangementInputs, entitlements, rules.netMethod) → NetBreakdown
+calculateNet(profile, inputs, rules.netMethod) → NetBreakdown
 ```
+
+`inputs` = `{ usageValue, participation, maintenance, familyGapShare, electricGrossUp }`: חמישה מספרים מוכנים. המנוע לא מכיר זכאויות; שכבת היישום ממירה את `entitlements` של בודק הזכאות (החלטה 7) למספרים האלה לפני הקריאה.
 
 | שלב | חישוב |
 |---|---|
@@ -742,4 +744,5 @@ CI (GitHub Actions): lint, typecheck, רמות 1-5, build. הליבה בגישת
 
 | תאריך | החלטה | שינוי | נימוק |
 |---|---|---|---|
+| 21.10.2026 | 6 | חתימת `calculateNet` ללא פרמטר `entitlements`: `calculateNet(profile, inputs, netMethod)` | שלב 2 באותה החלטה קבע שרכיבי ההסדר מוזנים מבחוץ, והפרמטר הכפיל את הפער המשפחתי והאחזקה. ההפרדה (בודק זכאות מחליט אם, מנוע מחשב כמה) נשמרת, והבדיקות נכתבות מול מספרים מהגיליון |
 | | | | |
