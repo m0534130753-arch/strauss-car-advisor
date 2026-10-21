@@ -16,7 +16,7 @@
 | שלב | נושא | סטטוס |
 |---|---|---|
 | 0 | סביבה ושלד | ✅ |
-| 1 | נתוני ייחוס והליבה העסקית | 🟡 S1-T1 עד T5 הושלמו |
+| 1 | נתוני ייחוס והליבה העסקית | 🟡 S1-T1 עד T6 הושלמו |
 | 2 | מסד נתונים ומאגר רשות המסים | ⬜ |
 | 3 | שכבת היישום (בלי AI) | ⬜ |
 | 4 | אבטחה ו-API | ⬜ |
@@ -84,7 +84,7 @@
   - **קבלה:** קובץ כללים פגום (למשל תקציב חסר) ← שגיאה ברורה; בדיקה לכך.
 - [x] **S1-T5 מנוע הנטו** · `src/server/domain/net/` (מדרגות, בל"ל/בריאות, `calculateNet`, `grossUpElectric`) לפי החלטה 6.
   - **קבלה:** כל בדיקות S1-T2 של "היום" עוברות.
-- [ ] **S1-T6 בודק הזכאות** · `src/server/domain/eligibility/` (`checkEligibility`, `listEligibleOptions`) לפי החלטה 7.
+- [x] **S1-T6 בודק הזכאות** · `src/server/domain/eligibility/` (`checkEligibility`, `listEligibleOptions`) לפי החלטה 7.
   - **קבלה:** כל מקרי הבדיקה בהחלטה 7 (8 מקרים) עוברים.
 - [ ] **S1-T7 השוואה ושינויים** · `src/server/domain/comparison/` (`buildChanges`) + `src/server/i18n/he.ts` (סיבות ותבניות מסקנה).
   - **קבלה:** סיבה ומסקנה לששת העובדים **זהות מילה במילה** לעמודות "סיבה" ו"למה" בגיליון.
@@ -256,3 +256,4 @@
 | 21.10 | S1-T1 | `scripts/import-excel.ts` + `scripts/lib/`: אקסל ← `data/catalog.json` (20), `occupations.json` (14), `sample-employees.json` (6, בלי ת"ז), `reference-results.json` (6); בדיקות הצלבה (ויתור מול עיסוק, רכב התחלה מול גיליון העובדים) | `npm run check`: lint נקי, typecheck עבר, 17 בדיקות עוברות (12 חדשות ב-`tests/import`); הרצה חוזרת נותנת קבצים זהים (sha256); אין רצף של 9 ספרות בקבצי הפלט | סכימות zod זמניות ב-`scripts/lib/excel-schemas.ts`, ש-S1-T4 יחליף. context7 לא היה זמין בסשן, נעשה שימוש ב-API בסיסי בלבד של zod ו-exceljs |
 | 21.10 | S1-T2, S1-T3, S1-T5 | טיפוסי ליבה (`domain/model`), בדיקות ייחוס לששת העובדים (`tests/domain/reference.test.ts`), מנוע נטו (`domain/net`: `calculateNet`, `grossUpElectric`, מדרגות מס, ביטוח לאומי ובריאות). נעשו ב-PR אחד, כי בדיקות שנכשלות בכוונה חוסמות CI | הבדיקות הורצו אדומות לפני המנוע (23 נכשלו, "not implemented"), ואחרי המנוע: `npm run check` נקי, 60 בדיקות עוברות; כיסוי `src/server/domain`: 100% ענפים (14/14) | החלטה 6 עודכנה: `calculateNet(profile, inputs, netMethod)` בלי `entitlements`. ההפרש בגיליון הוא בין שני נטו מעוגלים, והמנוע מחשב לפני עיגול (הסטייה עד שקל; E-003: −1,938.68 מול −1,938; E-006: +721.70 מול +721), ולכן הבדיקה בודקת גם את ההפרש המעוגל. **פתוח ל-S1-T7 ולממשק:** איזה הפרש מציגים לעובד |
 | 21.10 | S1-T4 | טוען כללים ונתוני ייחוס: ממשק `ReferenceDataSource` (`ports`), מתאם `FilesReferenceDataSource`, סכימות zod קבועות (`adapters/files/schemas`), המרה לטיפוסי הליבה (`Rules`, `Vehicle`, `Occupation`, `SampleEmployee`) ובדיקות הצלבה בין הקבצים. סקריפט הייבוא עבר לסכימות המשותפות והסכימות הזמניות נמחקו | `npm run check` נקי: 81 בדיקות עוברות (21 חדשות ב-`tests/import/reference-loader.test.ts`, כולל תקציב חסר ← שגיאה עם שם הקובץ והנתיב `budgets.ב`); `npm run build` עבר; כיסוי הליבה נשאר 100% ענפים; תוצאת הייבוא זהה (תוכן, ללא הבדל מלבד סיומות שורה) | `Vehicle.key` הוא עכשיו `CatalogRegistryKey` (החלטה 4 עודכנה). שגיאה בקובץ היא `ReferenceDataError` (תקלת הפעלה, לא תוצאה עסקית); `/api/health` יציג אותה בשלב 4. בטעינה ב-Windows (autocrlf) הקבצים נשלפים ב-CRLF, ולכן ההשוואה בבדיקה מנרמלת סיומות שורה |
+| 21.10 | S1-T6 | בודק זכאות (`domain/eligibility`): `checkEligibility` ו-`listEligibleOptions`, קודי סיבות, זכאויות (`Entitlements`) רק כשזכאי. בדיקת שלמות נוספת בטוען: רכב בקבוצה "משפחתי" חייב להופיע ב-`familyTrack.cars` | `npm run check` נקי: 114 בדיקות עוברות (32 חדשות ב-`tests/domain/eligibility.test.ts`, אחת בטוען); `npm run build` עבר; כיסוי `src/server/domain`: 100% ענפים (73/73); אין ייבוא מחוץ לליבה | ב-ROADMAP כתוב "8 מקרים", ובפועל נבדקו כל 13 התוצאות של החלטה 7 ועוד מקרי קצה. ARCHITECTURE עודכן (החלטה 7: איחוד ב-`EligibilityResult`, חתימות עם `occupations`; הנחות 9 ו-10). עם המחירים האמיתיים רכב מקבוצה גבוהה גורר גם `COST_EXCEEDS_BUDGET` (כל הסיבות נאספות). הטקסט בעברית של הסיבות ב-S1-T7 |
