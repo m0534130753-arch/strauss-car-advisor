@@ -1,0 +1,342 @@
+[
+  {
+    "id": "CAR-01",
+    "group": "א",
+    "manufacturerName": "קיה קוריאה",
+    "commercialName": "PICANTO",
+    "modelDescription": "B351A",
+    "key": {
+      "registrationYear": 2025,
+      "manufacturerCode": "00885",
+      "modelCode": "00643"
+    },
+    "propulsion": "petrol",
+    "listPrice": 105900,
+    "catalogUsageValue": 2690,
+    "monthlyCost": 2650,
+    "defaultParticipation": 150
+  },
+  {
+    "id": "CAR-02",
+    "group": "א",
+    "manufacturerName": "טויוטה צרפת",
+    "commercialName": "YARIS CROSS HSD",
+    "modelDescription": "MXPJ10L-BHXNBW",
+    "key": {
+      "registrationYear": 2025,
+      "manufacturerCode": "00672",
+      "modelCode": "00130"
+    },
+    "propulsion": "hybrid",
+    "listPrice": 154990,
+    "catalogUsageValue": 3350,
+    "monthlyCost": 3400,
+    "defaultParticipation": 200
+  },
+  {
+    "id": "CAR-03",
+    "group": "א",
+    "manufacturerName": "בי ווי די",
+    "commercialName": "BYD DOLPHIN",
+    "modelDescription": "EM2E-1",
+    "key": {
+      "registrationYear": 2025,
+      "manufacturerCode": "01014",
+      "modelCode": "00012"
+    },
+    "propulsion": "electric",
+    "listPrice": 150990,
+    "catalogUsageValue": 2590,
+    "monthlyCost": 3300,
+    "defaultParticipation": 200
+  },
+  {
+    "id": "CAR-04",
+    "group": "א",
+    "manufacturerName": "סיאט ספרד",
+    "commercialName": "LEON",
+    "modelDescription": "KL12TZ",
+    "key": {
+      "registrationYear": 2025,
+      "manufacturerCode": "00778",
+      "modelCode": "00618"
+    },
+    "propulsion": "petrol",
+    "listPrice": 152900,
+    "catalogUsageValue": 3880,
+    "monthlyCost": 3450,
+    "defaultParticipation": 200
+  },
+  {
+    "id": "CAR-05",
+    "group": "ב",
+    "manufacturerName": "קיה קוריאה",
+    "commercialName": "NIRO",
+    "modelDescription": "CP81EG",
+    "key": {
+      "registrationYear": 2025,
+      "manufacturerCode": "00885",
+      "modelCode": "00619"
+    },
+    "propulsion": "hybrid",
+    "listPrice": 139000,
+    "catalogUsageValue": 2950,
+    "monthlyCost": 3600,
+    "defaultParticipation": 250
+  },
+  {
+    "id": "CAR-06",
+    "group": "ב",
+    "manufacturerName": "מ.ג סין",
+    "commercialName": "MG4",
+    "modelDescription": "WH40",
+    "key": {
+      "registrationYear": 2025,
+      "manufacturerCode": "00443",
+      "modelCode": "00032"
+    },
+    "propulsion": "electric",
+    "listPrice": 150000,
+    "catalogUsageValue": 2430,
+    "monthlyCost": 3550,
+    "defaultParticipation": 250
+  },
+  {
+    "id": "CAR-07",
+    "group": "ב",
+    "manufacturerName": "טויוטה טורקיה",
+    "commercialName": "COROLLA",
+    "modelDescription": "MZEA11L-DEXNBW",
+    "key": {
+      "registrationYear": 2026,
+      "manufacturerCode": "00839",
+      "modelCode": "00295"
+    },
+    "propulsion": "petrol",
+    "listPrice": 165990,
+    "catalogUsageValue": 4120,
+    "monthlyCost": 3700,
+    "defaultParticipation": 250
+  },
+  {
+    "id": "CAR-08",
+    "group": "ב",
+    "manufacturerName": "יונדאי צ'כיה",
+    "commercialName": "KONA EV",
+    "modelDescription": "H781A",
+    "key": {
+      "registrationYear": 2026,
+      "manufacturerCode": "00253",
+      "modelCode": "00138"
+    },
+    "propulsion": "electric",
+    "listPrice": 174990,
+    "catalogUsageValue": 2960,
+    "monthlyCost": 3650,
+    "defaultParticipation": 250
+  },
+  {
+    "id": "CAR-09",
+    "group": "ג",
+    "manufacturerName": "טויוטה יפן",
+    "commercialName": "COROLLA CROSS",
+    "modelDescription": "ZVG12L-KHXGBW",
+    "key": {
+      "registrationYear": 2025,
+      "manufacturerCode": "00413",
+      "modelCode": "00296"
+    },
+    "propulsion": "hybrid",
+    "listPrice": 182990,
+    "catalogUsageValue": 4070,
+    "monthlyCost": 4300,
+    "defaultParticipation": 300
+  },
+  {
+    "id": "CAR-10",
+    "group": "ג",
+    "manufacturerName": "בי ווי די",
+    "commercialName": "ATTO 3",
+    "modelDescription": "SC2E-SC2E01",
+    "key": {
+      "registrationYear": 2025,
+      "manufacturerCode": "01014",
+      "modelCode": "00003"
+    },
+    "propulsion": "electric",
+    "listPrice": 177500,
+    "catalogUsageValue": 3130,
+    "monthlyCost": 4100,
+    "defaultParticipation": 300
+  },
+  {
+    "id": "CAR-11",
+    "group": "ג",
+    "manufacturerName": "קיה קוריאה",
+    "commercialName": "EV3",
+    "modelDescription": "FC81B",
+    "key": {
+      "registrationYear": 2025,
+      "manufacturerCode": "00885",
+      "modelCode": "00675"
+    },
+    "propulsion": "electric",
+    "listPrice": 169900,
+    "catalogUsageValue": 2930,
+    "monthlyCost": 4350,
+    "defaultParticipation": 300
+  },
+  {
+    "id": "CAR-12",
+    "group": "ג",
+    "manufacturerName": "יונדאי צ'כיה",
+    "commercialName": "TUCSON",
+    "modelDescription": "JB81B",
+    "key": {
+      "registrationYear": 2025,
+      "manufacturerCode": "00253",
+      "modelCode": "00133"
+    },
+    "propulsion": "petrol",
+    "listPrice": 188497,
+    "catalogUsageValue": 4790,
+    "monthlyCost": 4450,
+    "defaultParticipation": 400
+  },
+  {
+    "id": "CAR-13",
+    "group": "ג",
+    "manufacturerName": "מזדה יפן",
+    "commercialName": "MAZDA 3",
+    "modelDescription": "BP",
+    "key": {
+      "registrationYear": 2025,
+      "manufacturerCode": "00588",
+      "modelCode": "00446"
+    },
+    "propulsion": "petrol",
+    "listPrice": 179900,
+    "catalogUsageValue": 4570,
+    "monthlyCost": 4200,
+    "defaultParticipation": 350
+  },
+  {
+    "id": "CAR-14",
+    "group": "ד",
+    "manufacturerName": "טסלה סין",
+    "commercialName": "MODEL 3",
+    "modelDescription": "3E7F",
+    "key": {
+      "registrationYear": 2025,
+      "manufacturerCode": "01327",
+      "modelCode": "00730"
+    },
+    "propulsion": "electric",
+    "listPrice": 217813,
+    "catalogUsageValue": 4150,
+    "monthlyCost": 5100,
+    "defaultParticipation": 500
+  },
+  {
+    "id": "CAR-15",
+    "group": "ד",
+    "manufacturerName": "סקודה צ'כיה",
+    "commercialName": "OCTAVIA",
+    "modelDescription": "NX-NX337D",
+    "key": {
+      "registrationYear": 2025,
+      "manufacturerCode": "00676",
+      "modelCode": "01455"
+    },
+    "propulsion": "petrol",
+    "listPrice": 202690,
+    "catalogUsageValue": 5150,
+    "monthlyCost": 5000,
+    "defaultParticipation": 500
+  },
+  {
+    "id": "CAR-16",
+    "group": "ד",
+    "manufacturerName": "קיה סלובקיה",
+    "commercialName": "SPORTAGE HEV",
+    "modelDescription": "PV81G",
+    "key": {
+      "registrationYear": 2026,
+      "manufacturerCode": "00416",
+      "modelCode": "00294"
+    },
+    "propulsion": "plugin",
+    "listPrice": 229900,
+    "catalogUsageValue": 4550,
+    "monthlyCost": 5150,
+    "defaultParticipation": 500
+  },
+  {
+    "id": "CAR-17",
+    "group": "ד",
+    "manufacturerName": "בי ווי די",
+    "commercialName": "SEAL",
+    "modelDescription": "H6CD",
+    "key": {
+      "registrationYear": 2025,
+      "manufacturerCode": "01014",
+      "modelCode": "00014"
+    },
+    "propulsion": "electric",
+    "listPrice": 250000,
+    "catalogUsageValue": 4970,
+    "monthlyCost": 5200,
+    "defaultParticipation": 500
+  },
+  {
+    "id": "CAR-18",
+    "group": "ד",
+    "manufacturerName": "טויוטה יפן",
+    "commercialName": "RAV4",
+    "modelDescription": "AXAL52L-ANXXBW",
+    "key": {
+      "registrationYear": 2025,
+      "manufacturerCode": "00413",
+      "modelCode": "00368"
+    },
+    "propulsion": "hybrid",
+    "listPrice": 199000,
+    "catalogUsageValue": 4470,
+    "monthlyCost": 5200,
+    "defaultParticipation": 500
+  },
+  {
+    "id": "CAR-19",
+    "group": "משפחתי",
+    "manufacturerName": "קיה קוריאה",
+    "commercialName": "CARNIVAL",
+    "modelDescription": "NG5K3",
+    "key": {
+      "registrationYear": 2025,
+      "manufacturerCode": "00885",
+      "modelCode": "00648"
+    },
+    "propulsion": "petrol",
+    "listPrice": 319900,
+    "catalogUsageValue": 8120,
+    "monthlyCost": 6000,
+    "defaultParticipation": 500
+  },
+  {
+    "id": "CAR-20",
+    "group": "משפחתי",
+    "manufacturerName": "יונדאי קוריאה",
+    "commercialName": "SANTA FE",
+    "modelDescription": "P2DG1",
+    "key": {
+      "registrationYear": 2025,
+      "manufacturerCode": "00481",
+      "modelCode": "00533"
+    },
+    "propulsion": "petrol",
+    "listPrice": 185000,
+    "catalogUsageValue": 4700,
+    "monthlyCost": 5600,
+    "defaultParticipation": 500
+  }
+]

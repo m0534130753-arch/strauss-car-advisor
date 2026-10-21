@@ -16,7 +16,7 @@
 | שלב | נושא | סטטוס |
 |---|---|---|
 | 0 | סביבה ושלד | ✅ |
-| 1 | נתוני ייחוס והליבה העסקית | ⬜ |
+| 1 | נתוני ייחוס והליבה העסקית | 🟡 S1-T1 הושלמה |
 | 2 | מסד נתונים ומאגר רשות המסים | ⬜ |
 | 3 | שכבת היישום (בלי AI) | ⬜ |
 | 4 | אבטחה ו-API | ⬜ |
@@ -72,7 +72,7 @@
 
 > **גישת בדיקות-תחילה:** S1-T2 (בדיקות הייחוס) נכתב **לפני** המנוע. הבדיקות נכשלות, ואז כותבים קוד עד שהן עוברות.
 
-- [ ] **S1-T1 ייבוא האקסל** · `scripts/import-excel.ts`
+- [x] **S1-T1 ייבוא האקסל** · `scripts/import-excel.ts`
   - יוצר `data/catalog.json`, `occupations.json`, `sample-employees.json` (**בלי ת"ז**), `reference-results.json`.
   - קבוצות באותיות עבריות, "כן/לא" ← boolean, קודים כמחרוזת עם אפסים מובילים.
   - **קבלה:** 20 רכבים, 14 עיסוקים, 6 עובדים, 6 שורות ייחוס; הרצה חוזרת נותנת קבצים זהים.
@@ -253,3 +253,4 @@
 |---|---|---|---|---|
 | 21.10 | S0-T1..T6 | שלד, תלויות, מבנה, ESLint שכבות, CI, מסמכים | check + build עוברים; כללי שכבות נבדקו עם קבצי בדיקה | |
 | 21.10 | שלב 0 נסגר (S0-T7..T11) | חשבונות (GitHub, Supabase dev+prod, Gemini, Vercel), `.env.local`, CI ירוק, `main` מוגן, Vercel חי, Context7 מחובר | check + build עוברים; דחיפה ישירה ל-`main` נדחתה; קריאת `.env.local` נחסמה; `claude mcp list` מציג context7 מחובר; עמוד Vercel בעברית RTL (אישור ידני) | מריצה על Node 24 (הפרויקט מגדיר 22), הכול עבר. OpenRouter נדחה לשלב 7. אזור Vercel נקבע ב-`vercel.json` (fra1); הדשבורד מציג Overridden |
+| 21.10 | S1-T1 | `scripts/import-excel.ts` + `scripts/lib/`: אקסל ← `data/catalog.json` (20), `occupations.json` (14), `sample-employees.json` (6, בלי ת"ז), `reference-results.json` (6); בדיקות הצלבה (ויתור מול עיסוק, רכב התחלה מול גיליון העובדים) | `npm run check`: lint נקי, typecheck עבר, 17 בדיקות עוברות (12 חדשות ב-`tests/import`); הרצה חוזרת נותנת קבצים זהים (sha256); אין רצף של 9 ספרות בקבצי הפלט | סכימות zod זמניות ב-`scripts/lib/excel-schemas.ts`, ש-S1-T4 יחליף. context7 לא היה זמין בסשן, נעשה שימוש ב-API בסיסי בלבד של zod ו-exceljs |
