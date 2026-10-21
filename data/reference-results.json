@@ -1,0 +1,140 @@
+[
+  {
+    "employeeId": "E-001",
+    "today": {
+      "kind": "company_car",
+      "vehicleId": "CAR-09"
+    },
+    "alternative": {
+      "kind": "company_car",
+      "vehicleId": "CAR-10"
+    },
+    "eligible": true,
+    "reason": "הרכב מהקבוצה שלך או נמוכה ממנה",
+    "netToday": 11032,
+    "netAlternative": 11693,
+    "difference": 661,
+    "taxToday": 3443,
+    "taxAlternative": 3283,
+    "socialToday": 2153,
+    "socialAlternative": 2092,
+    "electricGrossRefund": 440,
+    "familyEmployeeShare": 0,
+    "conclusion": "שווי שימוש 4,070 → 3,130 ₪ · +250 ₪ נטו החזר חשמל (מגולם)"
+  },
+  {
+    "employeeId": "E-002",
+    "today": {
+      "kind": "company_car",
+      "vehicleId": "CAR-05"
+    },
+    "alternative": {
+      "kind": "company_car",
+      "vehicleId": "CAR-19"
+    },
+    "eligible": true,
+    "reason": "מסלול ברוכת ילדים (5 ילדים); על הפער מעל התקציב - 50% עובד",
+    "netToday": 8600,
+    "netAlternative": 5078,
+    "difference": -3522,
+    "taxToday": 1369,
+    "taxAlternative": 2861,
+    "socialToday": 1250,
+    "socialAlternative": 1879,
+    "electricGrossRefund": 0,
+    "familyEmployeeShare": 1150,
+    "conclusion": "שווי שימוש 2,950 → 8,120 ₪ · השתתפות 250 → 500 ₪ · חלק העובד בפער המסלול המשפחתי 1,150 ₪"
+  },
+  {
+    "employeeId": "E-003",
+    "today": {
+      "kind": "waiver",
+      "maintenanceAmount": 1500
+    },
+    "alternative": {
+      "kind": "company_car",
+      "vehicleId": "CAR-06"
+    },
+    "eligible": true,
+    "reason": "הרכב מהקבוצה שלך או נמוכה ממנה",
+    "netToday": 15047,
+    "netAlternative": 13109,
+    "difference": -1938,
+    "taxToday": 3419,
+    "taxAlternative": 3910,
+    "socialToday": 2144,
+    "socialAlternative": 2315,
+    "electricGrossRefund": 473,
+    "familyEmployeeShare": 0,
+    "conclusion": "נוסף שווי שימוש 2,430 ₪ ובוטלה אחזקה 1,500 ₪ · +250 ₪ נטו החזר חשמל (מגולם) · השתתפות 0 → 250 ₪"
+  },
+  {
+    "employeeId": "E-004",
+    "today": {
+      "kind": "company_car",
+      "vehicleId": "CAR-12"
+    },
+    "alternative": {
+      "kind": "company_car",
+      "vehicleId": "CAR-11"
+    },
+    "eligible": true,
+    "reason": "הרכב מהקבוצה שלך או נמוכה ממנה",
+    "netToday": 10693,
+    "netAlternative": 11900,
+    "difference": 1207,
+    "taxToday": 3991,
+    "taxAlternative": 3497,
+    "socialToday": 2301,
+    "socialAlternative": 2128,
+    "electricGrossRefund": 440,
+    "familyEmployeeShare": 0,
+    "conclusion": "שווי שימוש 4,790 → 2,930 ₪ · +250 ₪ נטו החזר חשמל (מגולם) · השתתפות 400 → 300 ₪"
+  },
+  {
+    "employeeId": "E-005",
+    "today": {
+      "kind": "company_car",
+      "vehicleId": "CAR-13"
+    },
+    "alternative": {
+      "kind": "waiver",
+      "maintenanceAmount": 2000
+    },
+    "eligible": true,
+    "reason": "העיסוק מאפשר ויתור",
+    "netToday": 14244,
+    "netAlternative": 17806,
+    "difference": 3562,
+    "taxToday": 6593,
+    "taxAlternative": 5694,
+    "socialToday": 3248,
+    "socialAlternative": 2935,
+    "electricGrossRefund": 0,
+    "familyEmployeeShare": 0,
+    "conclusion": "בוטל שווי שימוש 4,570 ₪, נוספה אחזקה 2,000 ₪ (חייבת במס) · השתתפות 350 → 0 ₪"
+  },
+  {
+    "employeeId": "E-006",
+    "today": {
+      "kind": "company_car",
+      "vehicleId": "CAR-15"
+    },
+    "alternative": {
+      "kind": "company_car",
+      "vehicleId": "CAR-14"
+    },
+    "eligible": true,
+    "reason": "הרכב מהקבוצה שלך או נמוכה ממנה",
+    "netToday": 17073,
+    "netAlternative": 17794,
+    "difference": 721,
+    "taxToday": 9367,
+    "taxAlternative": 9183,
+    "socialToday": 4170,
+    "socialAlternative": 4106,
+    "electricGrossRefund": 473,
+    "familyEmployeeShare": 0,
+    "conclusion": "שווי שימוש 5,150 → 4,150 ₪ · +250 ₪ נטו החזר חשמל (מגולם)"
+  }
+]
