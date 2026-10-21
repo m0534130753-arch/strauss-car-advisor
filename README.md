@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# יועץ הרכב של שטראוס
 
-## Getting Started
+עובד שואל "מה יקרה לנטו שלי אם אעבור לרכב חשמלי?", והבוט עונה בדקה, עם השוואה ברורה, מוסברת ונכונה.
 
-First, run the development server:
+- בוט בעברית שאוסף רק את מה שחסר, ופונה לנציג כשצריך
+- מנוע חישוב בקוד שאומת מול 12 ערכי הייחוס של שטראוס
+- שווי שימוש ממאגר רשות המסים, לא ניחוש
+- טבלת השוואה: מה השתנה, למה, וכמה זה שווה בנטו
+- מסך נציג: שאלות פתוחות, תשובה, והשיחה ממשיכה מאותה נקודה
+
+> **סטטוס:** בפיתוח. ראו [docs/ROADMAP.md](docs/ROADMAP.md).
+
+## מסמכים
+
+| מסמך | תוכן |
+|---|---|
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | האפיון המלא: 27 החלטות, נתוני ייחוס מאומתים, הנחות |
+| [docs/ROADMAP.md](docs/ROADMAP.md) | תוכנית בשלבים עם שערי בדיקה, ויומן התקדמות |
+| [docs/SETUP.md](docs/SETUP.md) | הקמת הסביבה צעד אחר צעד |
+| [docs/WORKFLOW.md](docs/WORKFLOW.md) | Git, ענפים, ועבודה עם Claude Code |
+| [docs/TOOLS.md](docs/TOOLS.md) | MCP, skills, והגנה על סודות |
+| [CLAUDE.md](CLAUDE.md) | הוראות העבודה ל-Claude Code |
+
+## הרצה מקומית
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # למלא לפי docs/SETUP.md
+npm run check                # lint + typecheck + tests
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## טכנולוגיות
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+TypeScript · Next.js 16 · Vercel AI SDK · Gemini · Supabase (Postgres) · Drizzle · zod · Tailwind · Vitest
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## נתונים
 
-## Learn More
+- `data/strauss-rules.json`: קובץ הכללים של האתגר, ללא שינוי (בפיילוט מחליפים את הקובץ, לא את הקוד)
+- `data/source/strauss-challenge-data.xlsx`: קטלוג, עיסוקים, עובדים לדוגמה וחישובי ייחוס
+- `data/source/*.csv`: מאגר שווי השימוש של רשות המסים 2026 (19MB, מחוץ ל-Git; ראו SETUP)
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+כל הנתונים פיקטיביים, חוץ מקודי התוצר/הדגם ושווי השימוש שנלקחו ממאגר רשות המסים.

@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# allow the env template (all other .env* files stay ignored)
+!.env.example
+
+# raw tax-authority CSV (19MB) - download separately, see docs/SETUP.md
+data/source/*.csv
+
+# claude code personal settings
+.claude/settings.local.json
