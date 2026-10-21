@@ -16,7 +16,7 @@
 | שלב | נושא | סטטוס |
 |---|---|---|
 | 0 | סביבה ושלד | ✅ |
-| 1 | נתוני ייחוס והליבה העסקית | 🟡 S1-T1 הושלמה |
+| 1 | נתוני ייחוס והליבה העסקית | 🟡 S1-T1, T2, T3, T5 הושלמו |
 | 2 | מסד נתונים ומאגר רשות המסים | ⬜ |
 | 3 | שכבת היישום (בלי AI) | ⬜ |
 | 4 | אבטחה ו-API | ⬜ |
@@ -76,13 +76,13 @@
   - יוצר `data/catalog.json`, `occupations.json`, `sample-employees.json` (**בלי ת"ז**), `reference-results.json`.
   - קבוצות באותיות עבריות, "כן/לא" ← boolean, קודים כמחרוזת עם אפסים מובילים.
   - **קבלה:** 20 רכבים, 14 עיסוקים, 6 עובדים, 6 שורות ייחוס; הרצה חוזרת נותנת קבצים זהים.
-- [ ] **S1-T2 בדיקות ייחוס (קודם!)** · `tests/domain/reference.test.ts`
+- [x] **S1-T2 בדיקות ייחוס (קודם!)** · `tests/domain/reference.test.ts`
   - לכל עובד: נטו, מס, בל"ל+בריאות, היום ובחלופה (±0.5); גילום ברוטו (440/473, ±0.5); פער משפחתי (1,150).
   - **קבלה:** הבדיקות קיימות ונכשלות כי המנוע לא קיים.
-- [ ] **S1-T3 טיפוסי הליבה** · `src/server/domain/model/` לפי החלטה 4.
+- [x] **S1-T3 טיפוסי הליבה** · `src/server/domain/model/` לפי החלטה 4.
 - [ ] **S1-T4 טוען כללים ונתוני ייחוס** · `src/server/adapters/files/` + סכימות zod; ממיר לטיפוסי הליבה.
   - **קבלה:** קובץ כללים פגום (למשל תקציב חסר) ← שגיאה ברורה; בדיקה לכך.
-- [ ] **S1-T5 מנוע הנטו** · `src/server/domain/net/` (מדרגות, בל"ל/בריאות, `calculateNet`, `grossUpElectric`) לפי החלטה 6.
+- [x] **S1-T5 מנוע הנטו** · `src/server/domain/net/` (מדרגות, בל"ל/בריאות, `calculateNet`, `grossUpElectric`) לפי החלטה 6.
   - **קבלה:** כל בדיקות S1-T2 של "היום" עוברות.
 - [ ] **S1-T6 בודק הזכאות** · `src/server/domain/eligibility/` (`checkEligibility`, `listEligibleOptions`) לפי החלטה 7.
   - **קבלה:** כל מקרי הבדיקה בהחלטה 7 (8 מקרים) עוברים.
@@ -254,3 +254,4 @@
 | 21.10 | S0-T1..T6 | שלד, תלויות, מבנה, ESLint שכבות, CI, מסמכים | check + build עוברים; כללי שכבות נבדקו עם קבצי בדיקה | |
 | 21.10 | שלב 0 נסגר (S0-T7..T11) | חשבונות (GitHub, Supabase dev+prod, Gemini, Vercel), `.env.local`, CI ירוק, `main` מוגן, Vercel חי, Context7 מחובר | check + build עוברים; דחיפה ישירה ל-`main` נדחתה; קריאת `.env.local` נחסמה; `claude mcp list` מציג context7 מחובר; עמוד Vercel בעברית RTL (אישור ידני) | מריצה על Node 24 (הפרויקט מגדיר 22), הכול עבר. OpenRouter נדחה לשלב 7. אזור Vercel נקבע ב-`vercel.json` (fra1); הדשבורד מציג Overridden |
 | 21.10 | S1-T1 | `scripts/import-excel.ts` + `scripts/lib/`: אקסל ← `data/catalog.json` (20), `occupations.json` (14), `sample-employees.json` (6, בלי ת"ז), `reference-results.json` (6); בדיקות הצלבה (ויתור מול עיסוק, רכב התחלה מול גיליון העובדים) | `npm run check`: lint נקי, typecheck עבר, 17 בדיקות עוברות (12 חדשות ב-`tests/import`); הרצה חוזרת נותנת קבצים זהים (sha256); אין רצף של 9 ספרות בקבצי הפלט | סכימות zod זמניות ב-`scripts/lib/excel-schemas.ts`, ש-S1-T4 יחליף. context7 לא היה זמין בסשן, נעשה שימוש ב-API בסיסי בלבד של zod ו-exceljs |
+| 21.10 | S1-T2, S1-T3, S1-T5 | טיפוסי ליבה (`domain/model`), בדיקות ייחוס לששת העובדים (`tests/domain/reference.test.ts`), מנוע נטו (`domain/net`: `calculateNet`, `grossUpElectric`, מדרגות מס, ביטוח לאומי ובריאות). נעשו ב-PR אחד, כי בדיקות שנכשלות בכוונה חוסמות CI | הבדיקות הורצו אדומות לפני המנוע (23 נכשלו, "not implemented"), ואחרי המנוע: `npm run check` נקי, 60 בדיקות עוברות; כיסוי `src/server/domain`: 100% ענפים (14/14) | החלטה 6 עודכנה: `calculateNet(profile, inputs, netMethod)` בלי `entitlements`. ההפרש בגיליון הוא בין שני נטו מעוגלים, והמנוע מחשב לפני עיגול (הסטייה עד שקל; E-003: −1,938.68 מול −1,938; E-006: +721.70 מול +721), ולכן הבדיקה בודקת גם את ההפרש המעוגל. **פתוח ל-S1-T7 ולממשק:** איזה הפרש מציגים לעובד |
