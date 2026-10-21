@@ -177,6 +177,11 @@ describe("a broken data folder gives a clear error", () => {
     await expect(loadFrom(folder)).rejects.toThrow(/familyTrack\.cars.*CAR-01/);
   });
 
+  it("rejects a family-group car that is missing from the family track", async () => {
+    const folder = copyOfData((f) => editJson(f, "strauss-rules.json", (rules) => setPath(rules, "familyTrack.cars", ["CAR-19"])));
+    await expect(loadFrom(folder)).rejects.toThrow(/familyTrack\.cars.*CAR-20/);
+  });
+
   it("rejects a sample employee whose occupation is unknown", async () => {
     const folder = copyOfData((f) => editJson(f, "sample-employees.json", (rows) => setPath(rows, "0.occupationId", "OCC-99")));
     await expect(loadFrom(folder)).rejects.toThrow(/sample-employees\.json.*OCC-99/);

@@ -264,12 +264,11 @@ type NetBreakdown = {
 
 ```ts
 type EligibilityStatus = 'eligible' | 'ineligible' | 'needs_data';
-type EligibilityResult = {
-  status: EligibilityStatus;
-  reasons: ReasonCode[];        // חיוביים ושליליים, כולם נאספים
-  missingFields: (keyof EmployeeProfile)[];
-  entitlements: { budget: number; electricBonus: boolean; familyGapEmployeeShare: number; maintenanceAmount: number };
-};
+type Entitlements = { budget: number; electricBonus: boolean; familyGapEmployeeShare: number; maintenanceAmount: number };
+type EligibilityResult =        // איחוד: זכאויות רק כשזכאי, ובלי מספרים מומצאים
+  | { status: 'eligible';   reasons: ReasonCode[]; entitlements: Entitlements }
+  | { status: 'ineligible'; reasons: ReasonCode[] }       // חיוביים ושליליים, כולם נאספים
+  | { status: 'needs_data'; reasons: ReasonCode[]; missingFields: (keyof EmployeeProfile)[] };
 ```
 
 | סוג | כללים (לפי הסדר) | סיבה חיובית |
@@ -282,7 +281,8 @@ type EligibilityResult = {
 - **"רכב חובה" חוסם ויתור בלבד**, לא מסלול משפחתי (דוד).
 - **החזר חשמל רק ל-`electric`** (3), לא לפלאג-אין.
 - **המצב היום לא נבדק לזכאות.**
-- פונקציה נלווית `listEligibleOptions(profile, catalog, rules)` לרכיב הבחירה ולהצעת חלופות.
+- `checkEligibility(profile, arrangement, data, current?)` ו-`listEligibleOptions(profile, data)`, כש-`data = { catalog, occupations, rules }` (העיסוק קובע את קבוצת העובד). האחרונה מחזירה את ההסדרים הזכאים (רכבי קטלוג, וויתור אם מותר) עם הזכאויות שלהם, לרכיב הבחירה ולהצעת חלופות.
+- `SAME_AS_CURRENT` הוא הערה בלבד: נוסף לסיבות, והסטטוס נקבע לפי שאר הכללים.
 - תרגום קודים לעברית ב-`server/i18n/he.ts`, לא בליבה.
 
 **זרימה לכל חלופה:**
@@ -741,6 +741,8 @@ CI (GitHub Actions): lint, typecheck, רמות 1-5, build. הליבה בגישת
 | 6 | `vehicleTypeCode = 1` ושנת מס מהמאגר לרכבי הקטלוג | 20/20 בדוח ההתאמה | **אומת לקטלוג הנוכחי** |
 | 7 | השתתפות מהקטלוג = מקור אמת | נתון רשמי של החברה | החלטה |
 | 8 | מס לא שלילי (max 0) | היגיון מס | הנחה |
+| 9 | עלות הרכב נבדקת מול תקציב קבוצת העובד (`COST_EXCEEDS_BUDGET`) | כמו חישוב הפער המשפחתי | הנחה, תתועד |
+| 10 | הכלל "החזר חשמל רק ל-`electric`" חל גם על רכב משפחתי חשמלי | אין כזה בקטלוג הנוכחי | הנחה, תתועד |
 
 **שינויים במסמך:** כל סטייה מהמסמך נרשמת כאן עם תאריך ונימוק, לפני שינוי הקוד.
 
@@ -748,4 +750,5 @@ CI (GitHub Actions): lint, typecheck, רמות 1-5, build. הליבה בגישת
 |---|---|---|---|
 | 21.10.2026 | 6 | חתימת `calculateNet` ללא פרמטר `entitlements`: `calculateNet(profile, inputs, netMethod)` | שלב 2 באותה החלטה קבע שרכיבי ההסדר מוזנים מבחוץ, והפרמטר הכפיל את הפער המשפחתי והאחזקה. ההפרדה (בודק זכאות מחליט אם, מנוע מחשב כמה) נשמרת, והבדיקות נכתבות מול מספרים מהגיליון |
 | 21.10.2026 | 4 | `Vehicle.key` הוא `CatalogRegistryKey` (שנת רישום, קוד תוצר, קוד דגם); `RegistryKey` המלא (עם `taxYear` ו-`vehicleTypeCode`) מורכב בשכבת היישום בשליפה מהמאגר | הקטלוג באקסל לא כולל שנת מס וקוד סוג רכב, והם משלימים מהמאגר (החלטה 15). מילוי שלהם בטוען היה ניחוש |
+| 21.10.2026 | 7 | `EligibilityResult` הוא איחוד (`entitlements` רק ב-`eligible`, `missingFields` רק ב-`needs_data`); חתימות `checkEligibility(profile, arrangement, data, current?)` ו-`listEligibleOptions(profile, data)` כש-`data = { catalog, occupations, rules }`; `SAME_AS_CURRENT` הוא הערה בלבד | זכאויות באפס היו מספר מומצא ל"בלי מספר"; הבודק צריך את רשימת העיסוקים כדי לגזור קבוצה, ולכן החתימה המקורית (בלי עיסוקים) לא הספיקה |
 | | | | |

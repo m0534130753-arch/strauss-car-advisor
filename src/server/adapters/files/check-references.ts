@@ -15,6 +15,13 @@ export function checkReferences(data: ReferenceData): void {
     }
   }
 
+  // The other direction: a family-group car outside the family track would be judged by the wrong rules
+  for (const vehicle of data.catalog) {
+    if (vehicle.group === "משפחתי" && !data.rules.familyTrack.cars.includes(vehicle.id)) {
+      throw new ReferenceDataError(RULES_FILE, `familyTrack.cars: "${vehicle.id}" is in the family group but not on the family track`);
+    }
+  }
+
   for (const employee of data.sampleEmployees) {
     const occupationId = employee.profile.occupationId?.value;
     if (occupationId === undefined || !occupationIds.has(occupationId)) {
