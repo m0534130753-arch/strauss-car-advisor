@@ -1,12 +1,12 @@
 import { ExcelImportError } from "./excel-cells";
-import type { Vehicle } from "./excel-schemas";
+import type { CatalogRow } from "@/server/adapters/files/schemas";
 
 export function parseAmount(raw: string): number {
   return Number(raw.replace(/,/g, ""));
 }
 
 // Exactly one catalog vehicle must match; zero or several is an import error, never a guess.
-export function findVehicle(catalog: readonly Vehicle[], commercialName: string, registrationYear?: number): Vehicle {
+export function findVehicle(catalog: readonly CatalogRow[], commercialName: string, registrationYear?: number): CatalogRow {
   const matches = catalog.filter(
     (vehicle) =>
       vehicle.commercialName === commercialName &&
