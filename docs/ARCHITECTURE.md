@@ -153,12 +153,14 @@ type Group = 'א' | 'ב' | 'ג' | 'ד';
 type CatalogGroup = Group | 'משפחתי';
 type Propulsion = 'petrol' | 'hybrid' | 'plugin' | 'electric'; // 0,1,2,3 לפי rules.valueOfUse.driveField
 
-type RegistryKey = {
-  taxYear: number;            // מהמאגר (2026)
+type CatalogRegistryKey = {   // מה שיש בקטלוג (מהאקסל)
   registrationYear: number;
-  vehicleTypeCode: string;    // '1' כברירת מחדל לרכבי הקטלוג
   manufacturerCode: string;   // מחרוזת! '00885'
   modelCode: string;          // מחרוזת! '00643'
+};
+type RegistryKey = CatalogRegistryKey & {  // המפתח המלא לשליפה מהמאגר
+  taxYear: number;            // מהמאגר (2026)
+  vehicleTypeCode: string;    // '1' כברירת מחדל לרכבי הקטלוג
 };
 
 type Vehicle = {
@@ -167,7 +169,7 @@ type Vehicle = {
   manufacturerName: string;
   commercialName: string;     // 'ATTO 3'
   modelDescription: string;   // 'SC2E-SC2E01'
-  key: RegistryKey;
+  key: CatalogRegistryKey;    // שכבת היישום משלימה ל-RegistryKey בשליפה מהמאגר
   propulsion: Propulsion;
   listPrice: number;
   catalogUsageValue: number;  // לבדיקה בלבד; בזמן ריצה המאגר קובע
@@ -745,4 +747,5 @@ CI (GitHub Actions): lint, typecheck, רמות 1-5, build. הליבה בגישת
 | תאריך | החלטה | שינוי | נימוק |
 |---|---|---|---|
 | 21.10.2026 | 6 | חתימת `calculateNet` ללא פרמטר `entitlements`: `calculateNet(profile, inputs, netMethod)` | שלב 2 באותה החלטה קבע שרכיבי ההסדר מוזנים מבחוץ, והפרמטר הכפיל את הפער המשפחתי והאחזקה. ההפרדה (בודק זכאות מחליט אם, מנוע מחשב כמה) נשמרת, והבדיקות נכתבות מול מספרים מהגיליון |
+| 21.10.2026 | 4 | `Vehicle.key` הוא `CatalogRegistryKey` (שנת רישום, קוד תוצר, קוד דגם); `RegistryKey` המלא (עם `taxYear` ו-`vehicleTypeCode`) מורכב בשכבת היישום בשליפה מהמאגר | הקטלוג באקסל לא כולל שנת מס וקוד סוג רכב, והם משלימים מהמאגר (החלטה 15). מילוי שלהם בטוען היה ניחוש |
 | | | | |
